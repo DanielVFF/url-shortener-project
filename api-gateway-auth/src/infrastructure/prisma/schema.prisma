@@ -1,0 +1,19 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = "postgresql://admin:70WpJjG|9ko]a@localhost:5432/url_shortener_authentication?schema=public"
+}
+
+
+model User {
+  user_id        String   @id @default(uuid()) @db.Uuid
+  name        String
+  email       String   @unique
+  password    String
+  phone_number String?
+  created_at  DateTime @default(now())
+  updated_at  DateTime @updatedAt
+}
