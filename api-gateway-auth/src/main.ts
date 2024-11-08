@@ -1,6 +1,7 @@
 import { NestFactory } from '@nestjs/core';
-import { AppModule } from './app.module';
+import { AppModule } from './app/app.module';
 import { Transport, MicroserviceOptions } from '@nestjs/microservices';
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -15,6 +16,16 @@ async function bootstrap() {
       },
     },
   });
+
+  const config = new DocumentBuilder()
+    .setTitle('API Gateway Auth')
+    .setDescription(
+      'API gateway para autênticação de serviço encurtador de url',
+    )
+    .setVersion('0.1.1')
+    .build();
+  const document = SwaggerModule.createDocument(app, config);
+  SwaggerModule.setup('api', app, document);
 
   await app.startAllMicroservices();
   await app.listen(3001);
