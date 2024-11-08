@@ -1,0 +1,1 @@
+0.1.0 -> Estrutura Inicial do Projeto Usando RabbitMQ como Broker
