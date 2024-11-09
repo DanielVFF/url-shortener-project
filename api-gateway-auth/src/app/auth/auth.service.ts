@@ -21,7 +21,8 @@ export class AuthService {
       loginData.password,
       user.password,
     );
-    if (!isPasswordValid) throw new UnauthorizedException();
+    if (!isPasswordValid)
+      throw new UnauthorizedException('Credenciais Inválidas');
 
     const accessToken = this.jwtService.sign(user);
 
@@ -30,4 +31,27 @@ export class AuthService {
       access_token: accessToken,
     };
   }
+
+  private decodeToken(token: string): any {
+    try {
+      return this.jwtService.decode(token);
+    } catch (error) {
+      throw new UnauthorizedException('Credenciais Inválidas');
+    }
+  }
+
+
+  public authDealing(authHeader: string): any {
+      const token = authHeader?.split(' ')[1];
+      if (!token) {
+        throw new UnauthorizedException('Credenciais Inválidas');
+      }
+      
+      const decoded = this.decodeToken(token);
+      const userId = decoded?.user_id;
+      
+      if (!userId) {
+        throw new UnauthorizedException('Credenciais Inválidas');
+      }
+    }
 }

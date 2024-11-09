@@ -1,44 +1,52 @@
-import { Controller } from '@nestjs/common';
+import { Controller, UseFilters, UsePipes } from '@nestjs/common';
 import { MessagePattern, Payload } from '@nestjs/microservices';
 import { UrlService } from './url.service';
-import { Url, Prisma } from '@prisma/client';
+import { Url } from '@prisma/client';
+import { ApiTags, ApiOperation } from '@nestjs/swagger';
+import { CreateUrlDto } from './dto/create-url.dto';
+import { SearchUrlByUsedIdDto } from './dto/search-url-by-user.dto';
+import { SearchUrlByShortDto } from './dto/search-url-by-short.dto';
+import { UpdateUrlDto } from './dto/update-url.dto';
+import { DeleteUrlDto } from './dto/delete-url.dto';
+import { RpcValidationFilter } from 'src/infrastructure/config/filters/rpcfilter';
+import { CustomValidationPipe } from 'src/infrastructure/config/pipes/custom-validation.pipe';
 
+@ApiTags('URLs')
 @Controller('urls')
 export class UrlController {
   constructor(private readonly urlService: UrlService) {}
 
-  @MessagePattern({ cmd : 'create-url'})
-  async createUrl(@Payload() data: Prisma.UrlCreateInput): Promise<Url> {
+  @ApiOperation({ summary: 'Cria uma nova Url Encurtada' })
+  @MessagePattern({ cmd: 'create-url' })
+  async createUrl(@Payload() data: CreateUrlDto): Promise<Url> {
     return this.urlService.createUrl(data);
   }
 
-  @MessagePattern({ cmd : 'get-url-by-id'})
-  async getUrlById(@Payload() url_id: string): Promise<Url | null> {
-    return this.urlService.getUrlById(url_id);
+  @ApiOperation({ summary: 'Busca uma url encurtada pelo Id de Usuario' })
+
+  @MessagePattern({ cmd: 'get-url-by-user_id' })
+  async getUrlById(@Payload() data: SearchUrlByUsedIdDto): Promise<Url[] | null> {
+    return this.urlService.getUrlByUserId(data.user_id);
   }
 
-  @MessagePattern({ cmd : 'get-all-urls'})
-  async getAllUrls(): Promise<Url[]> {
-    return this.urlService.getAllUrls();
+  @ApiOperation({ summary: 'Atualiza uma url encurtada' })
+  @MessagePattern({ cmd: 'update-url' })
+  async updateUrl(@Payload() data: { filter: string; data: UpdateUrlDto }): Promise<Url> {
+    return this.urlService.updateUrl(data.filter, data.data);
   }
 
-  @MessagePattern({ cmd : 'update-url'})
-  async updateUrl(@Payload() { url_id, data }: { url_id: string; data: Partial<Prisma.UrlUpdateInput> }): Promise<Url> {
-    return this.urlService.updateUrl(url_id, data);
+  @ApiOperation({ summary: 'Excluí uma url encurtada' })
+  @MessagePattern({ cmd: 'delete-url' })
+  async deleteUrl(@Payload() data: DeleteUrlDto): Promise<Url> {
+    return this.urlService.deleteUrl(data);
   }
 
-  @MessagePattern({ cmd : 'delete-url'})
-  async deleteUrl(@Payload() url_id: string): Promise<Url> {
-    return this.urlService.deleteUrl(url_id);
+  @ApiOperation({ summary: 'Busca url encurtada para redirecionar' })
+  @UseFilters(new RpcValidationFilter())
+  @UsePipes(new CustomValidationPipe())
+  @MessagePattern({ cmd: 'get-url-by-short-url' })
+  async getUrlByShortUrl(@Payload() data: SearchUrlByShortDto): Promise<Url | null> {
+    return this.urlService.getUrlByShortUrl(data.filter);
   }
 
-  @MessagePattern({ cmd : 'get-url-by-short-url'})
-  async getUrlByShortUrl(@Payload() short_url: string): Promise<Url | null> {
-    return this.urlService.getUrlByShortUrl(short_url);
-  }
-
-  @MessagePattern({ cmd : 'restore-url'})
-  async restoreUrl(@Payload() url_id: string): Promise<Url> {
-    return this.urlService.restoreUrl(url_id);
-  }
 }

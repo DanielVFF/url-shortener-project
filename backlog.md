@@ -4,11 +4,14 @@
 - [X] Estruturar as APIs com conexão de RabbitMQ (Gateway e serviço de encurtar URLs).
 - [X] Configurar as Dockers para rodar tudo com `docker-compose up` no projeto central.
 - [X] Configurar ESLint.
-- [ ] Configurar Dockeres do nest para compilar durante o processo de build
+- [ ] Configurar Dockeres do nest para compilar durante o processo de build //Npm i dentro do build também
 - [ ] Configurar Dockeres do nest para funcionar junto com RabbitMq
+- [ ] Configurar Redes do Docker;
 
 ## Banco de Dados e ORM
 - [X] Criar entidades no Prisma e estruturar o banco de dados Auth.
+- [ ] Implementar Soft-Delete
+- [ ] Criar Logs de acessos e usos
 - [ ] Criar entidades no Prisma e estruturar o banco de dados Shorterner.
 
 ## Autenticação e Validação
@@ -37,6 +40,8 @@
 - [ ] Melhorar o Docker do RabbitMQ.
 
 ## Melhoria Contínua
+- [ ] Padronização de Responses.
+- [ ] Melhorar legibilidade.
 - [ ] Cobrir o projeto com interfaces.
 - [ ] Melhorar código e suas injeções de dependências.
 - [ ] Sistema Tolerante a Erros.
