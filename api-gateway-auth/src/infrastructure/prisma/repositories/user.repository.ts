@@ -7,6 +7,9 @@ import { IUserRepository } from 'src/interfaces/user_repository.interface';
 export class UserRepository implements IUserRepository {
   constructor(private prisma: PrismaService) {}
 
+  async getUserByEmail(email: string): Promise<User | null> {
+    return await this.prisma.user.findUnique({ where: { email } });
+  }
   async getUserById(user_id: string): Promise<User | null> {
     return await this.prisma.user.findUnique({ where: { user_id } });
   }
@@ -19,7 +22,10 @@ export class UserRepository implements IUserRepository {
     return await this.prisma.user.create({ data });
   }
 
-  async updateUser(user_id: string, data: Partial<Prisma.UserUpdateInput>): Promise<User> {
+  async updateUser(
+    user_id: string,
+    data: Partial<Prisma.UserUpdateInput>,
+  ): Promise<User> {
     return await this.prisma.user.update({
       where: { user_id },
       data,
