@@ -7,18 +7,9 @@ import { IUrlRepository } from 'src/interfaces/url_repository.interface';
 export class UrlRepository implements IUrlRepository {
   constructor(private prisma: PrismaService) {}
 
-  async getUrlById(url_id: string): Promise<Url | null> {
-    return await this.prisma.url.findUnique({ where: { url_id } });
+  async getUrlByUserId(user_id: string): Promise<Url[] | []> {
+    return await this.prisma.url.findMany({ where: { user_id } });
   }
-
-  async getAllUrls(): Promise<Url[]> {
-    return await this.prisma.url.findMany({
-      where: {
-        status: 1, 
-      },
-    });
-  }
-
   async createUrl(data: Prisma.UrlCreateInput): Promise<Url> {
     return await this.prisma.url.create({ data });
   }
@@ -33,9 +24,9 @@ export class UrlRepository implements IUrlRepository {
     });
   }
 
-  async deleteUrl(url_id: string): Promise<Url> {
+  async deleteUrl(data : { url_id: string, user_id : string}): Promise<Url> {
     return await this.prisma.url.update({
-      where: { url_id },
+      where: data,
       data: {
         deleted_at: new Date(),
         status: 0
