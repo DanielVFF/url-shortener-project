@@ -29,9 +29,13 @@ export class CreateUserDto {
   })
   @IsString()
   @MinLength(12, { message: 'Senha deve ter no mínimo 12 caracteres' })
-  @Matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{12,}$/, {
-    message: 'Senha deve conter pelo menos uma letra maiúscula, uma letra minúscula, um número e um caractere especial',
-  })
+  @Matches(
+    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{12,}$/,
+    {
+      message:
+        'Senha deve conter pelo menos uma letra maiúscula, uma letra minúscula, um número e um caractere especial',
+    },
+  )
   password: string;
 
   @ApiProperty({

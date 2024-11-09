@@ -1,31 +1,41 @@
 import { Injectable } from '@nestjs/common';
 import { Prisma, User } from '@prisma/client';
+import { HelpersService } from 'src/infrastructure/helpers/helpers.service';
 import { UserRepository } from 'src/infrastructure/prisma/repositories/user.repository';
 
 @Injectable()
 export class UsersService {
-  constructor(private userRepository : UserRepository) {}
+  constructor(
+    private readonly userRepository: UserRepository,
+    private readonly helpersService: HelpersService,
+  ) {}
 
-  async getUserById(user_id: string): Promise<User | null> {
-    return await this.userRepository.getUserById(user_id);
+  async getUserById(userId: string): Promise<User | null> {
+    return this.userRepository.getUserById(userId);
   }
 
   async createUser(data: Prisma.UserCreateInput): Promise<User> {
-    return await this.userRepository.createUser(data);
+    data.password = await this.helpersService.hashPassword(data.password);
+    return this.userRepository.createUser(data);
   }
 
   async getAllUsers(): Promise<User[]> {
-    return await this.userRepository.getAllUsers();
+    return this.userRepository.getAllUsers();
   }
 
   async updateUser(
-    user_id: string,
-    data: Partial<Prisma.UserCreateInput>,
+    userId: string,
+    updateData: Partial<Prisma.UserCreateInput>,
   ): Promise<User> {
-    return await this.userRepository.updateUser(user_id,data);
+    if (updateData?.password) {
+      updateData.password = await this.helpersService.hashPassword(
+        updateData.password,
+      );
+    }
+    return this.userRepository.updateUser(userId, updateData);
   }
 
-  async deleteUser(user_id: string): Promise<User> {
-    return await this.userRepository.deleteUser(user_id);
+  async deleteUser(userId: string): Promise<User> {
+    return this.userRepository.deleteUser(userId);
   }
 }
