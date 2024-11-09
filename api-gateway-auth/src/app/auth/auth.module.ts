@@ -8,6 +8,7 @@ import { PrismaService } from 'src/infrastructure/prisma/prisma.service';
 import { EnvironmentConfigService } from 'src/infrastructure/config/environment-config/environment-config.service';
 import { ConfigModule } from '@nestjs/config';
 import { EnvironmentConfigModule } from 'src/infrastructure/config/environment-config/environment-config.module';
+import { JwtStrategy } from './auth.strategy';
 
 @Module({
   imports: [
@@ -22,6 +23,6 @@ import { EnvironmentConfigModule } from 'src/infrastructure/config/environment-c
     }),
   ],
   controllers: [AuthController],
-  providers: [AuthService, PrismaService, HelpersService, UserRepository],
+  providers: [AuthService, PrismaService, HelpersService, UserRepository, JwtStrategy],
 })
 export class AuthModule {}
