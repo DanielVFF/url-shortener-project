@@ -4,9 +4,15 @@ import { AppService } from './app.service';
 import { UsersModule } from './users/users.module';
 import { PrismaModule } from '../infrastructure/prisma/prisma.module';
 import { EnvironmentConfigModule } from '../infrastructure/config/environment-config/environment-config.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
-  imports: [UsersModule, PrismaModule, EnvironmentConfigModule],
+  imports: [
+    UsersModule,
+    PrismaModule,
+    EnvironmentConfigModule,
+    AuthModule,
+  ],
   controllers: [AppController],
   providers: [AppService],
 })
