@@ -1,7 +1,8 @@
-import { Controller, Get, Inject, Param } from '@nestjs/common';
+import { Controller, Get, Inject, Param, UseGuards } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
 import { lastValueFrom, timeout, retry, catchError } from 'rxjs';
 import { throwError } from 'rxjs';
+import { JwtAuthGuard } from 'src/app/auth/auth.guard';
 
 @Controller('rabbitmq')
 export class RabbitmqController {
@@ -12,11 +13,12 @@ export class RabbitmqController {
   }
 
   @Get(':command')
+  // @UseGuards(JwtAuthGuard)
   async sendMessage(@Param('command') command: string) {
     console.log(`Sending command: ${command}`);
     try {
       const result = this.client
-        .send({ cmd: command }, { data: 'Hello from Gateway' })
+        .send({ cmd: command }, {})
         .pipe(
           timeout(5000),
           retry(2), 

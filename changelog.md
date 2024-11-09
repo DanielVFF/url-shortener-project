@@ -28,3 +28,9 @@ Aqui está o changelog com as alterações solicitadas:
 - Estrutura do módulo de autenticação definida.  
 - Criado helper para JWT.  
 - Criados DTOs para login.
+
+
+**0.1.3** - Implementação de Guards e Ajustes de Configuração:  
+- Criação e implementação de guards de autenticação.  
+- Mudança no caminho do Prisma.  
+- Remoção de comentário desnecessário.

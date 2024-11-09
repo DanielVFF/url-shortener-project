@@ -12,7 +12,7 @@ async function bootstrap() {
   const microserviceOptions = {
     transport: Transport.RMQ,
     options: {
-      urls: [configService.getRabbitMqUrl()], // Usando a URL de forma centralizada
+      urls: [configService.getRabbitMqUrl()], 
       queue: configService.getRabbitMqQueue(),
       queueOptions: {
         durable: true,
