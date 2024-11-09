@@ -26,6 +26,7 @@
 - [ ] Documentação do projeto e de sua estrutura.
 
 ## Testes e Qualidade
+- [ ] Validações de Casos de Erro previsiveis.
 - [ ] Criar testes unitários.
 - [ ] Testes de desempenho com K6.
 - [ ] Construir Actions no GitHub para lint e testes automatizados.
@@ -36,6 +37,7 @@
 - [ ] Melhorar o Docker do RabbitMQ.
 
 ## Melhoria Contínua
+- [ ] Cobrir o projeto com interfaces.
 - [ ] Melhorar código e suas injeções de dependências.
 - [ ] Sistema Tolerante a Erros.
 - [ ] Criar funcionalidade de logger de erros Runtime

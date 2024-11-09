@@ -1,28 +1,33 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app/app.module';
-import { Transport, MicroserviceOptions } from '@nestjs/microservices';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import { Transport } from '@nestjs/microservices';
+import { EnvironmentConfigService } from './infrastructure/config/environment-config/environment-config.service';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
-  app.connectMicroservice<MicroserviceOptions>({
+  const configService = app.get(EnvironmentConfigService);
+
+  const microserviceOptions = {
     transport: Transport.RMQ,
     options: {
-      urls: ['amqp://user:password@localhost:5672'],
-      queue: 'api_gateway_queue',
+      urls: [configService.getRabbitMqUrl()], // Usando a URL de forma centralizada
+      queue: configService.getRabbitMqQueue(),
       queueOptions: {
         durable: true,
       },
     },
-  });
+  };
+
+  app.connectMicroservice(microserviceOptions);
 
   const config = new DocumentBuilder()
     .setTitle('API Gateway Auth')
     .setDescription(
-      'API gateway para autênticação de serviço encurtador de url',
+      'API gateway para autenticação de serviço encurtador de url',
     )
-    .setVersion('0.1.1')
+    .setVersion('0.1.2')
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);
