@@ -43,3 +43,16 @@ Aqui está o changelog com as alterações solicitadas:
 - Criação de interfaces para manter classes no padrão.  
 - Movimentação do módulo `app` para dentro da pasta `app`.  
 - Criação de segunda instância PostgreSQL dentro do `dc.yml`.
+
+**0.1.5** - Melhorias e Ajustes no Módulo URL e Autenticação:  
+- Refatoração de métodos do repositório.  
+- Definição de valor default e coluna de contador de cliques.  
+- Criação de helpers e função para criação de URL encurtada.  
+- Padrões de respostas para exceções RPC.  
+- Refatoração do módulo de URL.  
+- Criação de DTOs para URL.  
+- Remoção de função de teste.  
+- Adição de pipes e comentários sobre mudanças.  
+- Modificação da conexão com RabbitMQ.  
+- Padronização de respostas e exceções HTTP com pipes e filters.  
+- Decodificação do JWT para extração de `idUsuario`.
