@@ -18,7 +18,10 @@ export class AppController {
 
   @Get('send-message')
   async sendMessage() {
-    const result = this.client.send({ cmd: 'process_data' }, { data: 'Hello from Gateway' });
+    const result = this.client.send(
+      { cmd: 'process_data' },
+      { data: 'Hello from Gateway' },
+    );
     return lastValueFrom(result);
   }
 }
