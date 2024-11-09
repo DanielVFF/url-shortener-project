@@ -4,7 +4,7 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = "postgresql://admin:70WpJjG|9ko]a@localhost:5432/url_shortener_authentication?schema=public"
+  url      = env("DATABASE_URL")
 }
 
 
