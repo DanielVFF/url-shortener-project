@@ -27,7 +27,7 @@ async function bootstrap() {
     .setDescription(
       'API gateway para autenticação de serviço encurtador de url',
     )
-    .setVersion('0.1.1')
+    .setVersion('0.1.2')
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);
