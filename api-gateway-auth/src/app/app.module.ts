@@ -5,6 +5,8 @@ import { UsersModule } from './users/users.module';
 import { PrismaModule } from '../infrastructure/prisma/prisma.module';
 import { EnvironmentConfigModule } from '../infrastructure/config/environment-config/environment-config.module';
 import { AuthModule } from './auth/auth.module';
+import { RabbitMQModule } from 'src/infrastructure/rabbitmq/rabbitmq.module';
+import { ClientsModule } from '@nestjs/microservices';
 
 @Module({
   imports: [
@@ -12,6 +14,8 @@ import { AuthModule } from './auth/auth.module';
     PrismaModule,
     EnvironmentConfigModule,
     AuthModule,
+    ClientsModule,
+    RabbitMQModule,
   ],
   controllers: [AppController],
   providers: [AppService],
