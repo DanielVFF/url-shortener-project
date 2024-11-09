@@ -34,3 +34,12 @@ Aqui está o changelog com as alterações solicitadas:
 - Criação e implementação de guards de autenticação.  
 - Mudança no caminho do Prisma.  
 - Remoção de comentário desnecessário.
+
+
+**0.1.4** - Implementação de Módulo URL e Conexão com Banco de Dados:  
+- Criação do módulo `url`.  
+- Arquivos de configuração do banco de dados com variáveis do `.env`.  
+- Criação do módulo de conexão com o banco e repositório de URLs.  
+- Criação de interfaces para manter classes no padrão.  
+- Movimentação do módulo `app` para dentro da pasta `app`.  
+- Criação de segunda instância PostgreSQL dentro do `dc.yml`.

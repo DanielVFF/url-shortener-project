@@ -15,16 +15,36 @@ services:
 
   postgresql_db_auth:
     image: postgres:latest
-    container_name: postgres_server
+    container_name: postgres_server_auth
     env_file:
-      - .env
+      - .env  
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER_AUTH} 
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD_AUTH}  
+      - POSTGRES_DB=${POSTGRES_DB_AUTH} 
+    ports:
+      - "5432:5432" 
+    volumes:
+      - postgres_db_data_auth:/var/lib/postgresql/data
+
+  postgresql_db_url:
+    image: postgres:latest
+    container_name: postgres_server_url
+    env_file:
+      - .env  
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER_URL}  
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD_URL} 
+      - POSTGRES_DB=${POSTGRES_DB_URL} 
     ports:
       - "5432:5432"
     volumes:
-      - postgres_db_data:/var/lib/postgresql/data;
+      - postgres_db_data_url:/var/lib/postgresql/data
+
 networks:
   app-network:
     driver: bridge
 volumes:
   rabbitmq_data:
-  postgres_db_data:
+  postgres_db_data_auth:
+  postgres_db_data_url:
