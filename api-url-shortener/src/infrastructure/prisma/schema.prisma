@@ -15,6 +15,7 @@ model Url {
   click_count   Int      @default(0)
   created_at    DateTime @default(now())
   status        Int      @default(1)
+  updated_at  DateTime @updatedAt
   deleted_at    DateTime?
   user_id       String?  @db.Uuid
 }

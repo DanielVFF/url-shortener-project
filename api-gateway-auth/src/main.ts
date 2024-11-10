@@ -35,9 +35,9 @@ async function bootstrap() {
     .setVersion('0.3.0')
     .build();
   const document = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('api', app, document,{
+  SwaggerModule.setup('api', app, document, {
     swaggerOptions: {
-      tagsSorter: 'alpha',  // Ordena as tags por ordem alfabética
+      tagsSorter: 'alpha', // Ordena as tags por ordem alfabética
     },
   });
 

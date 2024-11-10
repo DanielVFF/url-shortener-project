@@ -11,7 +11,6 @@ const mockClientProxy = {
 
 describe('RabbitmqService', () => {
   let rabbitmqService: RabbitmqService;
-  let clientProxy: ClientProxy;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -22,7 +21,6 @@ describe('RabbitmqService', () => {
     }).compile();
 
     rabbitmqService = module.get<RabbitmqService>(RabbitmqService);
-    clientProxy = module.get<ClientProxy>('RABBITMQ_SERVICE');
   });
 
   it('deve ser definido', () => {
@@ -38,9 +36,16 @@ describe('RabbitmqService', () => {
     const mockResponse = { statusCode: 200, message: 'Sucesso' };
     mockClientProxy.send.mockReturnValue(of(mockResponse));
 
-    const response = await rabbitmqService.sendMessage('test.command', { data: 'test' }, 'user123');
-    
-    expect(mockClientProxy.send).toHaveBeenCalledWith({ cmd: 'test.command' }, { data: 'test', user_id: 'user123' });
+    const response = await rabbitmqService.sendMessage(
+      'test.command',
+      { data: 'test' },
+      'user123',
+    );
+
+    expect(mockClientProxy.send).toHaveBeenCalledWith(
+      { cmd: 'test.command' },
+      { data: 'test', user_id: 'user123' },
+    );
     expect(response).toEqual(mockResponse);
   });
 
@@ -49,7 +54,11 @@ describe('RabbitmqService', () => {
     mockClientProxy.send.mockReturnValue(of(mockResponse));
 
     try {
-      await rabbitmqService.sendMessage('test.command', { data: 'test' }, 'user123');
+      await rabbitmqService.sendMessage(
+        'test.command',
+        { data: 'test' },
+        'user123',
+      );
     } catch (error) {
       expect(error).toBeInstanceOf(HttpException);
       expect(error.message).toBe('Erro interno');
@@ -58,21 +67,35 @@ describe('RabbitmqService', () => {
   });
 
   it('deve lançar erro de timeout', async () => {
-    mockClientProxy.send.mockReturnValue(throwError(() => new Error('timeout')));
+    mockClientProxy.send.mockReturnValue(
+      throwError(() => new Error('timeout')),
+    );
 
     try {
-      await rabbitmqService.sendMessage('test.command', { data: 'test' }, 'user123', 1000);
+      await rabbitmqService.sendMessage(
+        'test.command',
+        { data: 'test' },
+        'user123',
+        1000,
+      );
     } catch (error) {
       expect(error.message).toBe('falha ao enviar a mensagem');
     }
   });
 
   it('deve tentar reenviar a mensagem quando ocorrer falha e falhar após o número de tentativas', async () => {
-    mockClientProxy.send.mockReturnValueOnce(throwError(() => new Error('erro')))
+    mockClientProxy.send
+      .mockReturnValueOnce(throwError(() => new Error('erro')))
       .mockReturnValueOnce(throwError(() => new Error('erro')));
-  
+
     try {
-      await rabbitmqService.sendMessage('test.command', { data: 'test' }, 'user123', 5000, 2); // 2 tentativas
+      await rabbitmqService.sendMessage(
+        'test.command',
+        { data: 'test' },
+        'user123',
+        5000,
+        2,
+      ); // 2 tentativas
     } catch (error) {
       expect(error.message).toBe('falha ao enviar a mensagem');
       expect(mockClientProxy.send).toHaveBeenCalledTimes(4); // 1 tentativa inicial + 3 tentativas(2 e o retry)

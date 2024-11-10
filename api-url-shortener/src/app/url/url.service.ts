@@ -54,6 +54,9 @@ export class UrlService {
   }
   async getUrlByShortUrl(short_url: string): Promise<Url | null> {
     const url =  await this.urlRepository.getUrlByShortUrl(short_url);
+    if(!url){
+      throw new NotFoundException(`Registro não encontrado`);
+    }
 
     await this.urlRepository.updateUrl(url?.url_id,{
       click_count : url?.click_count+1
