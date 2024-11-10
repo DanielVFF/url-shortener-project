@@ -58,7 +58,7 @@ Aqui está o changelog com as alterações solicitadas:
 - Decodificação do JWT para extração de `idUsuario`.
 
 
-**0.2.0** - Novas Funcionalidades e Melhorias na Arquitetura:  
+**0.3.0** - Novas Funcionalidades e Melhorias na Arquitetura:  
 - Colocação de verificação de cast de lint para aviso.  
 - Novas dependências e ajuste na configuração do Jest para buscar o caminho certo.  
 - Criação de testes.  
@@ -76,3 +76,12 @@ Aqui está o changelog com as alterações solicitadas:
 - Adição de filtros de exceção de mensagens.  
 - Ajuste no microserviço para integração de interfaces.  
 - Migração de DTOs para Gateway.
+
+
+
+**0.4.0** - Implementação de Testes e Validações de UUID  
+- Aplicação de testes e correções de lint.  
+- Criação de validação para UUID inválido.  
+- Aplicação de lint.  
+- Criação de testes e aplicação de lint no módulo de autenticação.  
+- Remoção de funções desnecessárias.
