@@ -79,9 +79,27 @@ Aqui está o changelog com as alterações solicitadas:
 
 
 
-**0.4.0** - Implementação de Testes e Validações de UUID  
+**0.5.0** - Implementação de Testes e Validações de UUID  
 - Aplicação de testes e correções de lint.  
 - Criação de validação para UUID inválido.  
 - Aplicação de lint.  
 - Criação de testes e aplicação de lint no módulo de autenticação.  
 - Remoção de funções desnecessárias.
+
+
+**0.5.0** - Melhoria na Configuração de Ambiente e Testes de Integração  
+- Subida de testes de integração com GitHub Actions.  
+- Criação de `.gitignore`.  
+- Ajustes na interface e busca de registro pelo ID.  
+- Lint e inclusão de Bearer na documentação.  
+- Ajustes no Prisma para compatibilidade fora do Windows.  
+- Mudança de biblioteca para compatibilidade fora do Windows.  
+- Validação para exceção de conflito.  
+- Adição de parâmetros na documentação.  
+- Melhoria na regex para validação de senha forte.  
+- Ajuste na documentação.  
+- Ajustes de lint.  
+- Criação de `.env.example`.  
+- Criação de `docker-compose` central.  
+- Criação de `docker-compose` internos.  
+- Criação de `Dockerfile` para aplicações NestJS.
