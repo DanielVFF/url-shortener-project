@@ -36,6 +36,7 @@ export class AuthService {
     try {
       return this.jwtService.decode(token, { json: true });
     } catch (_e) {
+      console.error(_e);
       throw new UnauthorizedException('Credenciais Inválidas');
     }
   }
