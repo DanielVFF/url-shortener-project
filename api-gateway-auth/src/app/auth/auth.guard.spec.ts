@@ -6,8 +6,6 @@ import { JwtAuthGuard } from './auth.guard';
 
 describe('JwtAuthGuard', () => {
   let guard: JwtAuthGuard;
-  let jwtService: JwtService;
-  let configService: EnvironmentConfigService;
 
   const mockJwtService = {
     verify: jest.fn(),
@@ -27,8 +25,6 @@ describe('JwtAuthGuard', () => {
     }).compile();
 
     guard = module.get<JwtAuthGuard>(JwtAuthGuard);
-    jwtService = module.get<JwtService>(JwtService);
-    configService = module.get<EnvironmentConfigService>(EnvironmentConfigService);
   });
 
   it('deve ser definido', () => {
