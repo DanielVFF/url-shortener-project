@@ -77,9 +77,7 @@ describe('UrlService', () => {
         short_url: 'abcd1234',
         user_id: 'user1',
       };
-      await expect(service.createUrl(data)).rejects.toThrow(
-        ConflictException,
-      );
+      await expect(service.createUrl(data)).rejects.toThrow(ConflictException);
     });
   });
 

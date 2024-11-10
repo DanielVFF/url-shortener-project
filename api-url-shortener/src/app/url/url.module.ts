@@ -7,7 +7,7 @@ import { HelpersService } from 'src/infrastructure/helpers/helpers.service';
 
 @Module({
   controllers: [UrlController],
-  providers: [UrlService,HelpersService, PrismaService,UrlRepository],
-  exports: [UrlService]
+  providers: [UrlService, HelpersService, PrismaService, UrlRepository],
+  exports: [UrlService],
 })
 export class UrlModule {}

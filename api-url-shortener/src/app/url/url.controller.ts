@@ -17,7 +17,9 @@ export class UrlController {
   }
 
   @MessagePattern({ cmd: 'get-url-by-user_id' })
-  async getUrlById(@Payload() data: SearchByUserUrlInteface): Promise<Url[] | null> {
+  async getUrlById(
+    @Payload() data: SearchByUserUrlInteface,
+  ): Promise<Url[] | null> {
     return this.urlService.getUrlByUserId(data.user_id);
   }
 
@@ -27,13 +29,19 @@ export class UrlController {
   }
 
   @MessagePattern({ cmd: 'delete-url' })
-  async deleteUrl(@Payload() data: {url_id : string} & SearchByUserUrlInteface): Promise<Url> {
-    return this.urlService.deleteUrl({ url_id: data.url_id, user_id : data.user_id});
+  async deleteUrl(
+    @Payload() data: { url_id: string } & SearchByUserUrlInteface,
+  ): Promise<Url> {
+    return this.urlService.deleteUrl({
+      url_id: data.url_id,
+      user_id: data.user_id,
+    });
   }
 
   @MessagePattern({ cmd: 'get-url-by-short-url' })
-  async getUrlByShortUrl(@Payload() data: SearchByShortUrlInteface): Promise<Url | null> {
+  async getUrlByShortUrl(
+    @Payload() data: SearchByShortUrlInteface,
+  ): Promise<Url | null> {
     return this.urlService.getUrlByShortUrl(data.short_url);
   }
-
 }
