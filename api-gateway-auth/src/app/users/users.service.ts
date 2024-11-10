@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { ConflictException, Injectable } from '@nestjs/common';
 import { Prisma, User } from '@prisma/client';
 import { HelpersService } from 'src/infrastructure/helpers/helpers.service';
 import { UserRepository } from 'src/infrastructure/prisma/repositories/user.repository';
@@ -15,6 +15,10 @@ export class UsersService {
   }
 
   async createUser(data: Prisma.UserCreateInput): Promise<User> {
+    const user = await this.userRepository.getUserByEmail(data?.email);
+    if (user) {
+      throw new ConflictException('Email já cadastrado');
+    }
     data.password = await this.helpersService.hashPassword(data.password);
     return this.userRepository.createUser(data);
   }
@@ -27,6 +31,12 @@ export class UsersService {
     userId: string,
     updateData: Partial<Prisma.UserCreateInput>,
   ): Promise<User> {
+    if (updateData?.email) {
+      const user = await this.userRepository.getUserByEmail(updateData?.email);
+      if (user) {
+        throw new ConflictException('Email já cadastrado');
+      }
+    }
     if (updateData?.password) {
       updateData.password = await this.helpersService.hashPassword(
         updateData.password,

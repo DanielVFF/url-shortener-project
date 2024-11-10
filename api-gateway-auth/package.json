@@ -1,6 +1,6 @@
 {
   "name": "api-gateway-auth",
-  "version": "0.3.0",
+  "version": "0.5.0",
   "description": "",
   "author": "",
   "private": true,
@@ -30,10 +30,10 @@
     "@nestjs/swagger": "^8.0.4",
     "@prisma/client": "^5.22.0",
     "amqplib": "^0.10.4",
-    "bcrypt": "^5.1.1",
+    "bcryptjs": "^2.4.3",
     "passport": "^0.7.0",
     "passport-jwt": "^4.0.1",
-    "reflect-metadata": "^0.3.0",
+    "reflect-metadata": "^0.2.0",
     "rxjs": "^7.8.1",
     "swagger-ui-express": "^5.0.1"
   },
@@ -43,6 +43,7 @@
     "@nestjs/schematics": "^10.0.0",
     "@nestjs/testing": "^10.0.0",
     "@types/bcrypt": "^5.0.2",
+    "@types/bcryptjs": "^2.4.6",
     "@types/express": "^5.0.0",
     "@types/jest": "^29.5.2",
     "@types/node": "^20.3.1",

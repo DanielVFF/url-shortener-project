@@ -15,12 +15,19 @@ import { CreateUrlDto } from './dto/create-url.dto';
 import { UpdateUrlDto } from './dto/update-url.dto';
 import { Url } from 'src/interfaces/url_model.interface';
 import { RabbitmqService } from 'src/infrastructure/rabbitmq/rabbitmq.service';
-import { ApiTags, ApiOperation, ApiResponse, ApiParam } from '@nestjs/swagger';
+import {
+  ApiTags,
+  ApiOperation,
+  ApiResponse,
+  ApiParam,
+  ApiBearerAuth,
+} from '@nestjs/swagger';
 import { UrlIdDto } from './dto/validate-url-id.dto';
 import { OptionalJwtAuthGuard } from '../auth/optional-auth.guard';
 import { Response } from 'express';
 @Controller('url')
 @ApiTags('Url')
+@ApiBearerAuth()
 export class UrlController {
   constructor(private brokerService: RabbitmqService) {}
 

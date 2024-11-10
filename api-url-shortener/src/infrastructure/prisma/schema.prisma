@@ -1,7 +1,7 @@
 generator client {
-  provider = "prisma-client-js"
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "debian-openssl-3.0.x", "linux-musl", "linux-arm64-openssl-3.0.x"]
 }
-
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
@@ -15,7 +15,7 @@ model Url {
   click_count   Int      @default(0)
   created_at    DateTime @default(now())
   status        Int      @default(1)
-  updated_at  DateTime @updatedAt
+  updated_at    DateTime? @updatedAt
   deleted_at    DateTime?
   user_id       String?  @db.Uuid
 }

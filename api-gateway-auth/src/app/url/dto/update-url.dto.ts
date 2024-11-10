@@ -11,8 +11,8 @@ export class UpdateUrlDto {
   original_url: string;
 
   @ApiProperty({
-    description: 'Url Original(A ser encurtada)',
-    example: 'https://docs.nestjs.com',
+    description: 'Url Curta(Opcional)',
+    example: 'nest',
   })
   @IsOptional()
   @MinLength(3, { message: 'Url encurtada deve ter no minimo 3 caracteres' })

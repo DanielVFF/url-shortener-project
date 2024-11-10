@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  postgresql_db_url:
+    image: postgres:latest
+    container_name: postgresql_db_url
+    ports:
+      - "5433:5432"  
+    volumes:
+      - postgres_db_data_url:/var/lib/postgresql/data
+    env_file:
+      - .env  
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER_URL} 
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD_URL}  
+      - POSTGRES_DB=${POSTGRES_DB_URL} 
+
+volumes:
+  postgres_db_data_url:

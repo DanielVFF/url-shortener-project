@@ -1,4 +1,42 @@
+version: '3.8'
+
 services:
+  api_gateway:
+    build: ./api-gateway-auth
+    container_name: api_gateway
+    working_dir: /usr/src/app
+    ports:
+      - "3001:3002"
+    depends_on:
+      postgresql_db_auth:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+    env_file:
+      - ./api-gateway-auth/.env
+    networks:
+      - app-network
+    volumes:
+      - api_gateway_node_modules:/usr/src/app/node_modules
+
+  microservice_shortener:
+    build: ./api-url-shortener
+    container_name: microservice_shortener
+    working_dir: /usr/src/app
+    ports:
+      - "3002:3002"
+    depends_on:
+      postgresql_db_url:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+    env_file:
+      - ./api-url-shortener/.env
+    networks:
+      - app-network
+    volumes:
+      - microservice_shortener_node_modules:/usr/src/app/node_modules
+
   rabbitmq:
     image: rabbitmq:management
     container_name: rabbitmq
@@ -12,39 +50,61 @@ services:
       - rabbitmq_data:/var/lib/rabbitmq
     networks:
       - app-network
+    healthcheck:
+      test: ["CMD-SHELL", "rabbitmqctl status"]
+      interval: 10s
+      timeout: 10s
+      retries: 5
 
   postgresql_db_auth:
     image: postgres:latest
-    container_name: postgres_server_auth
+    container_name: postgresql_db_auth
+    ports:
+      - "5434:5432" 
+    networks:
+      - app-network
+    volumes:
+      - postgres_db_data_auth:/var/lib/postgresql/data
     env_file:
       - .env  
     environment:
       - POSTGRES_USER=${POSTGRES_USER_AUTH} 
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD_AUTH}  
       - POSTGRES_DB=${POSTGRES_DB_AUTH} 
-    ports:
-      - "5432:5432" 
-    volumes:
-      - postgres_db_data_auth:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $POSTGRES_USER_AUTH -d $POSTGRES_DB_AUTH "]
+      interval: 5s
+      timeout: 5s
+      retries: 5
 
   postgresql_db_url:
     image: postgres:latest
-    container_name: postgres_server_url
+    container_name: postgresql_db_url
+    ports:
+      - "5433:5432"  
+    networks:
+      - app-network
+    volumes:
+      - postgres_db_data_url:/var/lib/postgresql/data
     env_file:
       - .env  
     environment:
-      - POSTGRES_USER=${POSTGRES_USER_URL}  
-      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD_URL} 
+      - POSTGRES_USER=${POSTGRES_USER_URL} 
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD_URL}  
       - POSTGRES_DB=${POSTGRES_DB_URL} 
-    ports:
-      - "5432:5432"
-    volumes:
-      - postgres_db_data_url:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $POSTGRES_USER_URL -d $POSTGRES_DB_URL "]
+      interval: 5s
+      timeout: 5s
+      retries: 5
 
 networks:
   app-network:
     driver: bridge
+
 volumes:
   rabbitmq_data:
   postgres_db_data_auth:
   postgres_db_data_url:
+  api_gateway_node_modules:
+  microservice_shortener_node_modules:

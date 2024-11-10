@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  microservice_shortener:
+    build: ./
+    container_name: microservice_shortener
+    working_dir: /usr/src/app
+    ports:
+      - "3002:3002"
+    env_file:
+      - .env
+    volumes:
+      - microservice_shortener_node_modules:/usr/src/app/node_modules
+
+volumes:
+  microservice_shortener_node_modules:
