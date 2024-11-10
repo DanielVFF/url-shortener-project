@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  api_gateway:
+    build: ./
+    container_name: api_gateway
+    working_dir: /usr/src/app
+    ports:
+      - "3001:3002"
+    env_file:
+      - .env
+    volumes:
+      - api_gateway_node_modules:/usr/src/app/node_modules
+
+volumes:
+  api_gateway_node_modules:
