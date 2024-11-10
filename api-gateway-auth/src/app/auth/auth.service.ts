@@ -15,7 +15,7 @@ export class AuthService {
 
   async authenticateUser(loginData: LoginDto): Promise<LoginResponseInterface> {
     const user = await this.userRepository.getUserByEmail(loginData.email);
-    if (!user) throw new UnauthorizedException();
+    if (!user) throw new UnauthorizedException('Credenciais Inválidas');
 
     const isPasswordValid = await this.helpersService.comparePassword(
       loginData.password,
@@ -35,8 +35,7 @@ export class AuthService {
   private decodeToken(token: string): { user_id: string } {
     try {
       return this.jwtService.decode(token, { json: true });
-    } catch (error) {
-      console.error(error);
+    } catch (_e) {
       throw new UnauthorizedException('Credenciais Inválidas');
     }
   }

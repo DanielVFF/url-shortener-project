@@ -23,7 +23,7 @@ export class CustomValidationPipe implements PipeTransform<object> {
       throw new HttpException(
         {
           message: Object.values(firstError)[0],
-          statusCode: 422, 
+          statusCode: 422,
         },
         422,
       );

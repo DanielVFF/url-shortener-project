@@ -7,6 +7,12 @@ import { HelpersService } from 'src/infrastructure/helpers/helpers.service';
 import { JwtService } from '@nestjs/jwt';
 @Module({
   controllers: [UsersController],
-  providers: [UsersService, PrismaService, HelpersService, UserRepository, JwtService],
+  providers: [
+    UsersService,
+    PrismaService,
+    HelpersService,
+    UserRepository,
+    JwtService,
+  ],
 })
 export class UsersModule {}

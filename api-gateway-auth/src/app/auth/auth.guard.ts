@@ -6,29 +6,36 @@ import { EnvironmentConfigService } from 'src/infrastructure/config/environment-
 
 @Injectable()
 export class JwtAuthGuard implements CanActivate {
-  constructor(private jwtService: JwtService, private configService: EnvironmentConfigService) {}
+  constructor(
+    private jwtService: JwtService,
+    private configService: EnvironmentConfigService,
+  ) {}
 
-  canActivate(context: ExecutionContext): boolean | Promise<boolean> | Observable<boolean> {
+  canActivate(
+    context: ExecutionContext,
+  ): boolean | Promise<boolean> | Observable<boolean> {
     const request = context.switchToHttp().getRequest();
     const authHeader = request.headers['authorization'];
 
     if (!authHeader) {
-      throw new UnauthorizedException("Credenciais inválidas");
+      throw new UnauthorizedException('Credenciais inválidas');
     }
 
-    const token = authHeader.split(' ')[1]; 
+    const token = authHeader.split(' ')[1];
 
     if (!token) {
-      throw new UnauthorizedException("Credenciais inválidas");
+      throw new UnauthorizedException('Credenciais inválidas');
     }
 
     try {
-      const decoded = this.jwtService.verify(token, { secret: this.configService.getSecretKey() });
-      request.user = decoded; 
+      const decoded = this.jwtService.verify(token, {
+        secret: this.configService.getSecretKey(),
+      });
+      request.user = decoded;
 
       return true;
-    } catch (e) {
-      throw new UnauthorizedException("Credenciais inválidas");
+    } catch (_e) {
+      throw new UnauthorizedException('Credenciais inválidas');
     }
   }
 }

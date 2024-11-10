@@ -22,9 +22,7 @@ import { Response } from 'express';
 @Controller('url')
 @ApiTags('Url')
 export class UrlController {
-  constructor(
-    private brokerService: RabbitmqService,
-  ) {}
+  constructor(private brokerService: RabbitmqService) {}
 
   @Post()
   @UseGuards(OptionalJwtAuthGuard)
@@ -44,20 +42,31 @@ export class UrlController {
   @ApiResponse({ status: 200, description: 'Lista de URLs' })
   async getUrlById(@Request() req: any): Promise<Url[] | null> {
     const user_id = req.user?.user_id;
-    return await this.brokerService.sendMessage('get-url-by-user_id', {}, user_id);
+    return await this.brokerService.sendMessage(
+      'get-url-by-user_id',
+      {},
+      user_id,
+    );
   }
 
   @Get(':short_url')
-  @ApiOperation({ summary: 'Obter URL pelo short URL, importante notar que swagger bloqueia esse redirecionamento' })
+  @ApiOperation({
+    summary:
+      'Obter URL pelo short URL, importante notar que swagger bloqueia esse redirecionamento',
+  })
   @ApiResponse({ status: 200, description: 'URL encontrada' })
   @ApiParam({ name: 'short_url', description: 'O short URL da URL encurtada' })
   async getUrlByShortUrl(
     @Param('short_url') short_url: string,
     @Request() req: any,
-    @Res() res : Response
+    @Res() res: Response,
   ): Promise<void | null> {
     const user_id = req.user?.user_id;
-    const brokerResult = await this.brokerService.sendMessage('get-url-by-short-url', { short_url }, user_id);
+    const brokerResult = await this.brokerService.sendMessage(
+      'get-url-by-short-url',
+      { short_url },
+      user_id,
+    );
     return res.redirect(brokerResult.original_url);
   }
 
@@ -69,11 +78,15 @@ export class UrlController {
   async updateUrl(
     @Param() params: UrlIdDto,
     @Body() data: UpdateUrlDto,
-    @Request() req: {user : { user_id : string}} & Request
+    @Request() req: { user: { user_id: string } } & Request,
   ): Promise<Url> {
     const { url_id } = params;
     const user_id = req.user?.user_id;
-    return await this.brokerService.sendMessage('update-url', { ...data, url_id }, user_id);
+    return await this.brokerService.sendMessage(
+      'update-url',
+      { ...data, url_id },
+      user_id,
+    );
   }
 
   @Delete(':url_id')
@@ -87,6 +100,10 @@ export class UrlController {
   ): Promise<Url> {
     const { url_id } = params;
     const user_id = req.user?.user_id;
-    return await this.brokerService.sendMessage('delete-url', { url_id }, user_id);
+    return await this.brokerService.sendMessage(
+      'delete-url',
+      { url_id },
+      user_id,
+    );
   }
 }
