@@ -44,7 +44,7 @@ Aqui está o changelog com as alterações solicitadas:
 - Movimentação do módulo `app` para dentro da pasta `app`.  
 - Criação de segunda instância PostgreSQL dentro do `dc.yml`.
 
-**0.1.5** - Melhorias e Ajustes no Módulo URL e Autenticação:  
+**0.2.0** - Melhorias e Ajustes no Módulo URL e Autenticação:  
 - Refatoração de métodos do repositório.  
 - Definição de valor default e coluna de contador de cliques.  
 - Criação de helpers e função para criação de URL encurtada.  
@@ -56,3 +56,23 @@ Aqui está o changelog com as alterações solicitadas:
 - Modificação da conexão com RabbitMQ.  
 - Padronização de respostas e exceções HTTP com pipes e filters.  
 - Decodificação do JWT para extração de `idUsuario`.
+
+
+**0.2.0** - Novas Funcionalidades e Melhorias na Arquitetura:  
+- Colocação de verificação de cast de lint para aviso.  
+- Novas dependências e ajuste na configuração do Jest para buscar o caminho certo.  
+- Criação de testes.  
+- Melhoria na documentação para buscar autenticação primeiro e solicitar auth.  
+- Criação de interface para modelo `url`.  
+- Criação de Testes.  
+- Adição do módulo `urlModule`.  
+- Mudança do padrão de retorno da rota para 200.  
+- Melhoria na validação de token para decodificação.  
+- Criação do módulo de URL e definição das rotas.  
+- Adição de importação necessária para guards.  
+- Mudança no módulo RabbitMQ para servir somente para conexão e não para instanciar rotas.  
+- Remoção de serviço inútil.  
+- Ajuste na tipagem para deletar pela URL encurtada.  
+- Adição de filtros de exceção de mensagens.  
+- Ajuste no microserviço para integração de interfaces.  
+- Migração de DTOs para Gateway.
