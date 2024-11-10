@@ -24,12 +24,12 @@ export class UrlRepository implements IUrlRepository {
     });
   }
 
-  async deleteUrl(data : { url_id: string, user_id : string}): Promise<Url> {
+  async deleteUrl(data: { url_id: string; user_id: string }): Promise<Url> {
     return await this.prisma.url.update({
       where: data,
       data: {
         deleted_at: new Date(),
-        status: 0
+        status: 0,
       },
     });
   }
