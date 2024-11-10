@@ -24,7 +24,7 @@ export class UrlRepository implements IUrlRepository {
     });
   }
 
-  async deleteUrl(data : { short_url: string, user_id : string}): Promise<Url> {
+  async deleteUrl(data : { url_id: string, user_id : string}): Promise<Url> {
     return await this.prisma.url.update({
       where: data,
       data: {
@@ -37,17 +37,12 @@ export class UrlRepository implements IUrlRepository {
   async getUrlByShortUrl(short_url: string): Promise<Url | null> {
     return await this.prisma.url.findUnique({
       where: { short_url },
-    //   rejectOnNotFound: true,
     });
   }
 
-  async restoreUrl(url_id: string): Promise<Url> {
-    return await this.prisma.url.update({
+  async getUrlById(url_id: string): Promise<Url | null> {
+    return await this.prisma.url.findUnique({
       where: { url_id },
-      data: {
-        deleted_at: null,
-        status: 1
-      },
     });
   }
 }

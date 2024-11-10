@@ -23,12 +23,12 @@ export class UrlController {
 
   @MessagePattern({ cmd: 'update-url' })
   async updateUrl(@Payload() data: UpdateUrlInterface): Promise<Url> {
-    return this.urlService.updateUrl(data.url_id, data.data);
+    return this.urlService.updateUrl(data.url_id, data);
   }
 
   @MessagePattern({ cmd: 'delete-url' })
-  async deleteUrl(@Payload() data: SearchByShortUrlInteface & SearchByUserUrlInteface): Promise<Url> {
-    return this.urlService.deleteUrl({ short_url: data.short_url, user_id : data.user_id});
+  async deleteUrl(@Payload() data: {url_id : string} & SearchByUserUrlInteface): Promise<Url> {
+    return this.urlService.deleteUrl({ url_id: data.url_id, user_id : data.user_id});
   }
 
   @MessagePattern({ cmd: 'get-url-by-short-url' })

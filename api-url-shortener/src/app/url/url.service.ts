@@ -24,7 +24,7 @@ export class UrlService {
     }else{
       const url = await this.urlRepository.getUrlByShortUrl(data?.short_url);
       if(url){
-        throw new ConflictException('Url encurtada já existe, escreve uma nova ou deixa ser gerada automaticamente')
+        throw new ConflictException('Url encurtada já existe, escreve uma nova ou deixe ser gerada automaticamente')
       }
     }
     return await this.urlRepository.createUrl(data as Prisma.UrlCreateInput );
@@ -36,7 +36,7 @@ export class UrlService {
 
 
   async updateUrl(url_id: string, data: Partial<Prisma.UrlUpdateInput>): Promise<Url> {
-    const url = await this.urlRepository.getUrlByShortUrl(url_id);
+    const url = await this.urlRepository.getUrlById(url_id);
     if (!url) {
       throw new NotFoundException(`Registro não encontrado`);
     }
@@ -44,8 +44,8 @@ export class UrlService {
     return await this.urlRepository.updateUrl(url_id, data);
   }
 
-  async deleteUrl(data: { short_url: string; user_id: string }): Promise<Url> {
-    const url = await this.urlRepository.getUrlByShortUrl(data.short_url);
+  async deleteUrl(data: { url_id: string; user_id: string }): Promise<Url> {
+    const url = await this.urlRepository.getUrlById(data.url_id);
     if (!url || url.user_id !== data.user_id) {
       throw new NotFoundException(`Registro não encontrado`);
     }
