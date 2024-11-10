@@ -11,6 +11,14 @@ import { PrismaService } from 'src/infrastructure/prisma/prisma.service';
 @Module({
   imports: [RabbitMQModule],
   controllers: [UrlController],
-  providers: [RabbitmqService, AuthService, JwtService, HelpersService, PrismaService, UserRepository, JwtService],
+  providers: [
+    RabbitmqService,
+    AuthService,
+    JwtService,
+    HelpersService,
+    PrismaService,
+    UserRepository,
+    JwtService,
+  ],
 })
 export class UrlModule {}

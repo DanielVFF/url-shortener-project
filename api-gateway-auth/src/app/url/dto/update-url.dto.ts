@@ -3,7 +3,6 @@ import { ApiProperty } from '@nestjs/swagger';
 import { IsNotEmpty, IsUUID } from 'class-validator';
 
 export class UpdateUrlDto {
-
   @ApiProperty({
     description: 'Url Original(A ser encurtada)',
     example: 'https://docs.nestjs.com',
