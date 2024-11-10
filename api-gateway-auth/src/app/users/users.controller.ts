@@ -14,6 +14,7 @@ import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { JwtAuthGuard } from '../auth/auth.guard';
+import { UuidParamDto } from './dto/uuid-param.dto';
 
 @ApiTags('User')
 @Controller('users')
@@ -25,15 +26,15 @@ export class UsersController {
   @ApiResponse({ status: 200, description: 'Usuário encontrado' })
   @ApiResponse({ status: 404, description: 'Usuário não encontrado' })
   @UseGuards(JwtAuthGuard)
-  async getUserById(@Param('uuid') uuid: string): Promise<User | null> {
-    return this.userService.getUserById(uuid);
+  async getUserById(@Param() uuid: UuidParamDto): Promise<User | null> {
+    return this.userService.getUserById(uuid?.uuid);
   }
 
   @Post()
   @ApiOperation({ summary: 'Criação de um novo usuário' })
   @ApiResponse({ status: 201, description: 'Usuário criado com sucesso' })
   @ApiResponse({ status: 422, description: 'Dados inválidos.' })
-  @UseGuards(JwtAuthGuard)
+  // @UseGuards(JwtAuthGuard)
   async createUser(@Body() data: CreateUserDto): Promise<User> {
     return this.userService.createUser(data);
   }
@@ -53,10 +54,10 @@ export class UsersController {
   @ApiResponse({ status: 422, description: 'Dados inválidos.' })
   @UseGuards(JwtAuthGuard)
   async updateUser(
-    @Param('uuid') uuid: string,
+    @Param() uuid: UuidParamDto,
     @Body() data: UpdateUserDto,
   ): Promise<User> {
-    return this.userService.updateUser(uuid, data);
+    return this.userService.updateUser(uuid?.uuid, data);
   }
 
   @Delete(':uuid')
@@ -64,7 +65,7 @@ export class UsersController {
   @ApiResponse({ status: 200, description: 'Usuário deletado com sucesso.' })
   @ApiResponse({ status: 404, description: 'Usuário não encontrado' })
   @UseGuards(JwtAuthGuard)
-  async deleteUser(@Param('uuid') uuid: string): Promise<User> {
-    return this.userService.deleteUser(uuid);
+  async deleteUser(@Param() uuid: UuidParamDto): Promise<User> {
+    return this.userService.deleteUser(uuid?.uuid);
   }
 }
