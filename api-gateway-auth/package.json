@@ -1,6 +1,6 @@
 {
   "name": "api-gateway-auth",
-  "version": "0.1.4",
+  "version": "0.3.0",
   "description": "",
   "author": "",
   "private": true,
@@ -33,7 +33,7 @@
     "bcrypt": "^5.1.1",
     "passport": "^0.7.0",
     "passport-jwt": "^4.0.1",
-    "reflect-metadata": "^0.2.0",
+    "reflect-metadata": "^0.3.0",
     "rxjs": "^7.8.1",
     "swagger-ui-express": "^5.0.1"
   },
@@ -51,6 +51,8 @@
     "@typescript-eslint/eslint-plugin": "^8.13.0",
     "@typescript-eslint/parser": "^8.13.0",
     "amqp-connection-manager": "^4.1.14",
+    "class-transformer": "^0.5.1",
+    "class-validator": "^0.14.1",
     "eslint": "^8.57.1",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-import": "^2.31.0",
@@ -81,7 +83,10 @@
       "**/*.(t|j)s"
     ],
     "coverageDirectory": "../coverage",
-    "testEnvironment": "node"
+    "testEnvironment": "node",
+    "moduleNameMapper": {
+      "^src/(.*)$": "<rootDir>/$1"
+    }
   },
   "prisma": {
     "schema": "./src/infrastructure/prisma/schema.prisma"
