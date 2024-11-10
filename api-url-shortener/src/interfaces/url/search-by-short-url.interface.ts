@@ -1,3 +1,3 @@
 export interface SearchByShortUrlInteface {
-    short_url? : string
+  short_url?: string;
 }
