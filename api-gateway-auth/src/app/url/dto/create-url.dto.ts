@@ -23,9 +23,4 @@ import { IsNotEmpty, IsUUID, MaxLength } from 'class-validator';
     @MaxLength(6, { message : 'Url encurtada deve ter no máximo 6 caracteres'})
     short_url?: string;
 
-    //Esse parametro é enviado pelo gateway, não vai ser colocado no swagger
-    @IsOptional()
-    @IsUUID('4',{message : "Usuário inválido, por favor contate o suporte"})
-    user_id?: string;
-
   }
