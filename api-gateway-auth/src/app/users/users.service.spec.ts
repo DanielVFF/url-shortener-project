@@ -29,6 +29,7 @@ describe('UsersService', () => {
           useValue: {
             getUserById: jest.fn().mockResolvedValue(mockUser),
             createUser: jest.fn().mockResolvedValue(mockUser),
+            getUserByEmail: jest.fn().mockResolvedValue(null),
             getAllUsers: jest.fn().mockResolvedValue([mockUser]),
             updateUser: jest.fn().mockResolvedValue(mockUser),
             deleteUser: jest.fn().mockResolvedValue(mockUser),
@@ -68,7 +69,7 @@ describe('UsersService', () => {
         password: 'password',
         phone_number: '(23) 323223232',
       };
-
+  
       const result = await service.createUser(createUserDto);
       expect(helpersService.hashPassword).toHaveBeenCalledWith('password');
       expect(result).toEqual(mockUser);
@@ -77,7 +78,29 @@ describe('UsersService', () => {
         password: 'hashed_password',
       });
     });
+  
+    it('deve lançar erro se o email já estiver cadastrado', async () => {
+      const createUserDto: Prisma.UserCreateInput = {
+        email: 'test@example.com',
+        name: 'Test User',
+        password: 'password',
+        phone_number: '(23) 323223232',
+      };
+  
+      userRepository.createUser = jest.fn().mockRejectedValue(new Error('Email já cadastrado'));
+  
+      try {
+        await service.createUser(createUserDto);
+      } catch (error) {
+        expect(error.message).toBe('Email já cadastrado');
+        expect(userRepository.createUser).toHaveBeenCalledWith({
+          ...createUserDto,
+          password: 'hashed_password',
+        });
+      }
+    });
   });
+  
 
   describe('getAllUsers', () => {
     it('deve retornar uma lista de usuários', async () => {
