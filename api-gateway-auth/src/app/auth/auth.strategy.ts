@@ -5,14 +5,15 @@ import { EnvironmentConfigService } from 'src/infrastructure/config/environment-
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
-  constructor(configService : EnvironmentConfigService) {
+  constructor(configService: EnvironmentConfigService) {
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
       ignoreExpiration: false,
-      secretOrKey: configService.getSecretKey(),  
+      secretOrKey: configService.getSecretKey(),
     });
   }
 
+  //Alterar
   async validate(payload: any) {
     return { userId: payload.sub, username: payload.username };
   }

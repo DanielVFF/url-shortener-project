@@ -7,6 +7,7 @@ import { EnvironmentConfigModule } from '../infrastructure/config/environment-co
 import { AuthModule } from './auth/auth.module';
 import { RabbitMQModule } from 'src/infrastructure/rabbitmq/rabbitmq.module';
 import { ClientsModule } from '@nestjs/microservices';
+import { UrlModule } from './url/url.module';
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { ClientsModule } from '@nestjs/microservices';
     AuthModule,
     ClientsModule,
     RabbitMQModule,
+    UrlModule,
   ],
   controllers: [AppController],
   providers: [AppService],

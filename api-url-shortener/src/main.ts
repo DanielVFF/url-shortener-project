@@ -1,6 +1,8 @@
 import { NestFactory } from '@nestjs/core';
 import { Transport, MicroserviceOptions } from '@nestjs/microservices';
 import { AppModule } from './app/app.module';
+import { CustomValidationPipe } from './infrastructure/config/pipes/custom-validation.pipe';
+import { RpcValidationFilter } from './infrastructure/config/filters/rpcfilter';
 
 async function bootstrap() {
   const app = await NestFactory.createMicroservice<MicroserviceOptions>(AppModule, {
@@ -13,6 +15,10 @@ async function bootstrap() {
       },
     },
   });
+
+
+  // Ativando o Filter como global
+  app.useGlobalFilters(new RpcValidationFilter());
 
   await app.listen();
 }

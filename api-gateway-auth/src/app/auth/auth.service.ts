@@ -32,26 +32,28 @@ export class AuthService {
     };
   }
 
-  private decodeToken(token: string): any {
+  private decodeToken(token: string): { user_id: string } {
     try {
-      return this.jwtService.decode(token);
+      return this.jwtService.decode(token, { json: true });
     } catch (error) {
+      console.error(error);
       throw new UnauthorizedException('Credenciais Inválidas');
     }
   }
 
-
-  public authDealing(authHeader: string): any {
-      const token = authHeader?.split(' ')[1];
-      if (!token) {
-        throw new UnauthorizedException('Credenciais Inválidas');
-      }
-      
-      const decoded = this.decodeToken(token);
-      const userId = decoded?.user_id;
-      
-      if (!userId) {
-        throw new UnauthorizedException('Credenciais Inválidas');
-      }
+  public authDealing(authHeader: string): string {
+    const token = authHeader?.split(' ')[1];
+    if (!token) {
+      throw new UnauthorizedException('Credenciais Inválidas');
     }
+
+    const decoded = this.decodeToken(token);
+    const userId = decoded?.user_id;
+
+    if (!userId) {
+      throw new UnauthorizedException('Credenciais Inválidas');
+    }
+
+    return userId;
+  }
 }
