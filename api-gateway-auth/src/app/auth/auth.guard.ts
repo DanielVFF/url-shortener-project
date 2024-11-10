@@ -35,6 +35,7 @@ export class JwtAuthGuard implements CanActivate {
 
       return true;
     } catch (_e) {
+      console.error(_e)
       throw new UnauthorizedException('Credenciais inválidas');
     }
   }
