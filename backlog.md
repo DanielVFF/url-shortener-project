@@ -10,18 +10,19 @@
 
 ## Banco de Dados e ORM
 - [X] Criar entidades no Prisma e estruturar o banco de dados Auth.
-- [ ] Implementar Soft-Delete
+- [X] Implementar Soft-Delete
 - [ ] Criar Logs de acessos e usos
-- [ ] Criar entidades no Prisma e estruturar o banco de dados Shorterner.
+- [X] Criar entidades no Prisma e estruturar o banco de dados Shorterner.
 
 ## Autenticação e Validação
 - [X] Criar rotas de crud de usuário;
 - [X] Validar senha segura.
-- [ ] Criar Dtos para as rotas de autenticação.
-- [ ] Criar rotas de autenticação e implementar verificação de autenticação.
+- [X] Criar Dtos para as rotas de autenticação.
+- [X] Criar rotas de autenticação e implementar verificação de autenticação.
 
 ## Microserviços
-- [ ] Criar rotas de encurtar URL dentro do microserviço.
+- [X] Criar rotas de encurtar URL dentro do microserviço.
+- [ ] Remover dependencias de swagger e validation pipes
 
 ## Documentação
 - [X] Documentar API com Swagger.
@@ -29,7 +30,7 @@
 - [ ] Documentação do projeto e de sua estrutura.
 
 ## Testes e Qualidade
-- [ ] Validações de Casos de Erro previsiveis.
+- [X] Validações de Casos de Erro previsiveis.
 - [ ] Criar testes unitários.
 - [ ] Testes de desempenho com K6.
 - [ ] Construir Actions no GitHub para lint e testes automatizados.
@@ -40,11 +41,12 @@
 - [ ] Melhorar o Docker do RabbitMQ.
 
 ## Melhoria Contínua
-- [ ] Padronização de Responses.
+- [X] Padronização de Responses.
+- [ ] Fazer um Broker Service em Vez de um modulo especificamente para o RabbitMQ
 - [ ] Melhorar legibilidade.
 - [ ] Cobrir o projeto com interfaces.
 - [ ] Melhorar código e suas injeções de dependências.
-- [ ] Sistema Tolerante a Erros.
+- [X] Sistema Tolerante a Erros.
 - [ ] Criar funcionalidade de logger de erros Runtime
 
 ## Deploy
@@ -54,4 +56,5 @@
 - [ ] Sistema de Recuperação de senha via sms ou email(sms dev?)
 
 ## Bugs
-- [ ] Ajustar erro de busca de uuid inválido
+- [X] Ajustar erro de busca de uuid inválido
+- [X] Ajustar erros de query no geral
