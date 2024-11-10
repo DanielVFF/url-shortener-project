@@ -4,6 +4,9 @@ on:
   push:
     branches:
       - main
+  pull_request:
+    branches:
+      - main
 
 jobs:
   lint:
@@ -17,8 +20,14 @@ jobs:
         with:
           node-version: '22'
         
-      - name: Install dependencies
+      - name: Install dependencies for api-gateway-auth
         run: |
+          cd api-gateway-auth
+          npm ci
+          
+      - name: Install dependencies for api-url-shortener
+        run: |
+          cd api-url-shortener
           npm ci
           
       - name: Run Lint for api-gateway-auth
@@ -43,8 +52,14 @@ jobs:
         with:
           node-version: '22'
         
-      - name: Install dependencies
+      - name: Install dependencies for api-gateway-auth
         run: |
+          cd api-gateway-auth
+          npm ci
+          
+      - name: Install dependencies for api-url-shortener
+        run: |
+          cd api-url-shortener
           npm ci
           
       - name: Run Jest tests with coverage for api-gateway-auth
