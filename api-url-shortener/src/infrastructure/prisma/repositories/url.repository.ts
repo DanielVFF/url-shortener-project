@@ -24,7 +24,7 @@ export class UrlRepository implements IUrlRepository {
     });
   }
 
-  async deleteUrl(data : { url_id: string, user_id : string}): Promise<Url> {
+  async deleteUrl(data : { short_url: string, user_id : string}): Promise<Url> {
     return await this.prisma.url.update({
       where: data,
       data: {
