@@ -11,10 +11,13 @@ COPY . .
 # Necessário para configurar o prisma para o Sistema no qual a aplicação roda
 RUN npx prisma generate
 
+# Gerar Migrations se necessário
+RUN npx prisma migrate dev --name init 
+
 # O Docker foi pensado para produção, então para deploy é necessário atualizar o build
 RUN npm run build
 
 EXPOSE 3002
 
 # Tenta fazer as migrations no banco e start
-CMD ["sh", "-c", "npx prisma migrate dev --name init && npx prisma migrate deploy && npm run start:prod"]
+CMD ["sh", "-c", "npx prisma migrate deploy && npm run start:prod"]
