@@ -44,13 +44,11 @@ describe('UsersController', () => {
         {
           provide: UserRepository,
           useValue: {
-            // Adicione mocks para os métodos usados no serviço
           },
         },
         {
           provide: EnvironmentConfigService,
           useValue: {
-            // Adicione mocks para as configurações usadas pelo JwtAuthGuard
           },
         },
       ],
