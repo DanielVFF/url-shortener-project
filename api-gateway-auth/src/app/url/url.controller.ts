@@ -70,12 +70,35 @@ export class UrlController {
     @Res() res: Response,
   ): Promise<void | null> {
     const user_id = req.user?.user_id;
-    const brokerResult = await this.brokerService.sendMessage(
+    const brokerResult : Url = await this.brokerService.sendMessage(
       'get-url-by-short-url',
       { short_url },
       user_id,
     );
+    console.log(brokerResult);
     return res.redirect(brokerResult.original_url);
+  }
+
+
+  @Get('link/:short_url')
+  @ApiOperation({
+    summary:
+      'Obter Link de URL pelo short URL, importante notar que swagger bloqueia esse redirecionamento',
+  })
+  @ApiResponse({ status: 200, description: 'URL encontrada' })
+  @ApiParam({ name: 'short_url', description: 'O short URL da URL encurtada' })
+  async getUrlLinkByShortUrl(
+    @Param('short_url') short_url: string,
+    @Request() req: CustomRequest,
+  ): Promise<Partial<Url> | null> {
+    const user_id = req.user?.user_id;
+    const brokerResult: Url = await this.brokerService.sendMessage(
+      'get-url-by-short-url',
+      { short_url },
+      user_id,
+    );
+    const hostUrl = `${req.protocol}://${req.get('host').split(':')[0]}/`;
+    return {short_url : hostUrl + brokerResult.short_url}
   }
 
   @Put(':url_id')
