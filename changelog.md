@@ -1,7 +1,3 @@
-Aqui está o changelog com as alterações solicitadas:
-
----
-
 **0.1.0** - Estrutura Inicial do Projeto Usando RabbitMQ como Broker  
 - Configuração inicial do projeto com RabbitMQ como broker para comunicação entre microserviços.
 
@@ -69,6 +65,10 @@ Aqui está o changelog com as alterações solicitadas:
 - Mudança do padrão de retorno da rota para 200.  
 - Melhoria na validação de token para decodificação.  
 - Criação do módulo de URL e definição das rotas.  
+
+
+
+**0.4.0** - Criação de Guards:  
 - Adição de importação necessária para guards.  
 - Mudança no módulo RabbitMQ para servir somente para conexão e não para instanciar rotas.  
 - Remoção de serviço inútil.  
@@ -105,7 +105,7 @@ Aqui está o changelog com as alterações solicitadas:
 - Criação de `Dockerfile` para aplicações NestJS.
 
 
-**0.8.0** - Atualizações de Dependências e Configurações de Docker  
+**0.7.0** - Atualizações de Dependências e Configurações de Docker  
 -  Verificação do arquivo de dependências.  
 -  Modificação do `Dockerfile` para migrar o banco de dados.  
 -  Atualização e criação de `.env.example`.  
@@ -130,3 +130,14 @@ Aqui está o changelog com as alterações solicitadas:
 - Correção nas migrations.  
 - Atualização de versão e dependências.  
 - Lint e remoção de `phone_number` por falta de necessidade.
+
+
+**0.9.0** - Melhoria na Documentação e Ajustes Menores  
+- Adição de JSDocs no projeto para melhorar a documentação do código.  
+- Ajuste na URL.  
+- Destacando informações na documentação.
+
+
+**1.0.0** - Finalizando README 
+- Finalizando README.
+- Deploy na CGP.
