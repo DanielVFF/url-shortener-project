@@ -87,7 +87,7 @@ Aqui está o changelog com as alterações solicitadas:
 - Remoção de funções desnecessárias.
 
 
-**0.5.0** - Melhoria na Configuração de Ambiente e Testes de Integração  
+**0.6.0** - Melhoria na Configuração de Ambiente e Testes de Integração  
 - Subida de testes de integração com GitHub Actions.  
 - Criação de `.gitignore`.  
 - Ajustes na interface e busca de registro pelo ID.  
@@ -103,3 +103,30 @@ Aqui está o changelog com as alterações solicitadas:
 - Criação de `docker-compose` central.  
 - Criação de `docker-compose` internos.  
 - Criação de `Dockerfile` para aplicações NestJS.
+
+
+**0.8.0** - Atualizações de Dependências e Configurações de Docker  
+-  Verificação do arquivo de dependências.  
+-  Modificação do `Dockerfile` para migrar o banco de dados.  
+-  Atualização e criação de `.env.example`.  
+-  Atualização de versão.  
+-  Atualização do README.md.  
+-  Atualização de testes.  
+-  Ajustes de lint.  
+-  Merge das configurações dinâmicas de Docker e CI.  
+-  Atualização do `ci.yml` para novas configurações.  
+-  Atualização do `package-lock.json`.
+
+
+
+**0.8.0** - Atualizações de Documentação, Nginx e Migrations  
+- Remoção de `docker-compose` internos e arquivos de configuração redundantes.  
+- Alteração do caminho da documentação.  
+- Criação de migrations.  
+- Correção para evitar geração de migrations antes do banco de dados estar disponível.  
+- Configuração do Nginx como reverse proxy.  
+- Ajustes na documentação.  
+- Nova rota para retornar o link de acesso.  
+- Correção nas migrations.  
+- Atualização de versão e dependências.  
+- Lint e remoção de `phone_number` por falta de necessidade.
