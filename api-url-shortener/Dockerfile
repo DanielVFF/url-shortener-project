@@ -17,4 +17,4 @@ RUN npm run build
 EXPOSE 3002
 
 # Tenta fazer as migrations no banco e start
-CMD ["sh", "-c", "npx prisma migrate init && npm run start:prod"]
+CMD ["sh", "-c", "npx prisma migrate dev --name init && npx prisma migrate deploy && npm run start:prod"]
