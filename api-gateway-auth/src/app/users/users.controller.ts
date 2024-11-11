@@ -41,7 +41,7 @@ export class UsersController {
   }
 
   @Post()
-  @ApiOperation({ summary: 'Registrar o próprio usuario' })
+  @ApiOperation({ summary: 'Registrar usuario' })
   @ApiResponse({ status: 201, description: 'Usuário criado com sucesso' })
   @ApiResponse({ status: 422, description: 'Dados inválidos.' })
   async createUser(@Body() data: CreateUserDto): Promise<User> {
