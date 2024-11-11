@@ -11,7 +11,7 @@ export class UsersService {
   ) {}
 
   async getUserById(userId: string): Promise<User | null> {
-    return this.userRepository.getUserById(userId);
+    return await this.userRepository.getUserById(userId);
   }
 
   async createUser(data: Prisma.UserCreateInput): Promise<User> {
@@ -20,11 +20,11 @@ export class UsersService {
       throw new ConflictException('Email já cadastrado');
     }
     data.password = await this.helpersService.hashPassword(data.password);
-    return this.userRepository.createUser(data);
+    return await this.userRepository.createUser(data);
   }
 
   async getAllUsers(): Promise<User[]> {
-    return this.userRepository.getAllUsers();
+    return await this.userRepository.getAllUsers();
   }
 
   async updateUser(
@@ -32,8 +32,10 @@ export class UsersService {
     updateData: Partial<Prisma.UserCreateInput>,
   ): Promise<User> {
     if (updateData?.email) {
-      const user = await this.userRepository.getUserByEmail(updateData?.email);
-      if (user) {
+      const userByEmail = await this.userRepository.getUserByEmail(
+        updateData?.email,
+      );
+      if (userByEmail) {
         throw new ConflictException('Email já cadastrado');
       }
     }
@@ -42,10 +44,10 @@ export class UsersService {
         updateData.password,
       );
     }
-    return this.userRepository.updateUser(userId, updateData);
+    return await this.userRepository.updateUser(userId, updateData);
   }
 
   async deleteUser(userId: string): Promise<User> {
-    return this.userRepository.deleteUser(userId);
+    return await this.userRepository.deleteUser(userId);
   }
 }

@@ -32,7 +32,7 @@ async function bootstrap() {
       'API gateway para autenticação de serviço encurtador de url',
     )
     .addBearerAuth()
-    .setVersion('0.5.0')
+    .setVersion('0.7.0')
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document, {
