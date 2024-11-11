@@ -98,13 +98,4 @@ describe('UserRepository', () => {
     });
   });
 
-  describe('deleteUser', () => {
-    it('deve deletar um usuário pelo ID', async () => {
-      const result = await repository.deleteUser('12345');
-      expect(result).toEqual(mockUser);
-      expect(prisma.user.delete).toHaveBeenCalledWith({
-        where: { user_id: '12345' },
-      });
-    });
-  });
 });

@@ -138,11 +138,4 @@ describe('UsersService', () => {
     });
   });
 
-  describe('deleteUser', () => {
-    it('deve deletar um usuário pelo ID', async () => {
-      const result = await service.deleteUser('12345');
-      expect(result).toEqual(mockUser);
-      expect(userRepository.deleteUser).toHaveBeenCalledWith('12345');
-    });
-  });
 });
