@@ -5,6 +5,9 @@ import { UserRepository } from 'src/infrastructure/prisma/repositories/user.repo
 import { JwtService } from '@nestjs/jwt';
 import { HelpersService } from 'src/infrastructure/helpers/helpers.service';
 
+/**
+ * Serviço de autenticação responsável pela autenticação de usuários.
+ */
 @Injectable()
 export class AuthService {
   constructor(
@@ -13,6 +16,12 @@ export class AuthService {
     private readonly jwtService: JwtService,
   ) {}
 
+  /**
+   * Autentica o usuário com base nas credenciais fornecidas.
+   * @param loginData Dados de login fornecidos pelo usuário.
+   * @returns Um objeto com a mensagem de sucesso e o token de acesso gerado.
+   * @throws UnauthorizedException Se as credenciais forem inválidas.
+   */
   async authenticateUser(loginData: LoginDto): Promise<LoginResponseInterface> {
     const user = await this.userRepository.getUserByEmail(loginData.email);
     if (!user) throw new UnauthorizedException('Credenciais Inválidas');
@@ -32,6 +41,12 @@ export class AuthService {
     };
   }
 
+  /**
+   * Decodifica o token JWT e retorna as informações decodificadas.
+   * @param token O token JWT a ser decodificado.
+   * @returns Um objeto com os dados decodificados do token.
+   * @throws UnauthorizedException Se ocorrer um erro ao decodificar o token.
+   */
   private decodeToken(token: string): { user_id: string } {
     try {
       return this.jwtService.decode(token, { json: true });
@@ -41,6 +56,12 @@ export class AuthService {
     }
   }
 
+  /**
+   * Processa o cabeçalho de autorização para extrair o token e validar o usuário.
+   * @param authHeader Cabeçalho de autorização contendo o token JWT.
+   * @returns O ID do usuário extraído do token.
+   * @throws UnauthorizedException Se o token for inválido ou o usuário não for encontrado.
+   */
   public authDealing(authHeader: string): string {
     const token = authHeader?.split(' ')[1];
     if (!token) {

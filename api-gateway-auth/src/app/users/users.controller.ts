@@ -30,6 +30,11 @@ import { CustomRequest } from 'src/interfaces/custom-request';
 export class UsersController {
   constructor(private readonly userService: UsersService) {}
 
+  /**
+   * Busca um usuário pelo ID.
+   * @param uuid - Contém o UUID do usuário.
+   * @returns O usuário correspondente ao UUID fornecido ou null, caso não seja encontrado.
+   */
   @Get(':uuid')
   @ApiOperation({ summary: 'Buscar usuário pelo user_id' })
   @ApiResponse({ status: 200, description: 'Usuário encontrado' })
@@ -40,6 +45,11 @@ export class UsersController {
     return this.userService.getUserById(uuid?.uuid);
   }
 
+  /**
+   * Registra um novo usuário.
+   * @param data - Contém os dados para criar o novo usuário.
+   * @returns O usuário criado.
+   */
   @Post()
   @ApiOperation({ summary: 'Registrar usuario' })
   @ApiResponse({ status: 201, description: 'Usuário criado com sucesso' })
@@ -48,6 +58,10 @@ export class UsersController {
     return this.userService.createUser(data);
   }
 
+  /**
+   * Lista todos os usuários.
+   * @returns Uma lista de todos os usuários.
+   */
   @Get()
   @ApiOperation({ summary: 'Listar todos usuários' })
   @ApiResponse({ status: 200, description: 'Lista de Usuários' })
@@ -56,6 +70,12 @@ export class UsersController {
     return this.userService.getAllUsers();
   }
 
+  /**
+   * Atualiza o próprio usuário.
+   * @param data - Contém os dados para atualizar o usuário.
+   * @param req - Request que contém o ID do usuário autenticado.
+   * @returns O usuário atualizado.
+   */
   @Put()
   @ApiOperation({ summary: 'Atualiza o próprio usuário' })
   @ApiResponse({ status: 200, description: 'Usuário atualizado com sucesso.' })
@@ -70,6 +90,11 @@ export class UsersController {
     return this.userService.updateUser(user_id, data);
   }
 
+  /**
+   * Deleta o próprio usuário.
+   * @param req - Request que contém o ID do usuário autenticado.
+   * @returns O usuário deletado.
+   */
   @Delete()
   @ApiOperation({ summary: 'Deleta o próprio usuário' })
   @ApiResponse({ status: 200, description: 'Usuário deletado com sucesso.' })

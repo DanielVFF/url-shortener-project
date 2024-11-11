@@ -9,7 +9,7 @@ export class EnvironmentConfigService implements EnvironmentConfigInterface {
   getDatabaseHost(): string {
     const dbHost = this.configService.get<string>('DATABASE_HOST');
     if (!dbHost) {
-      throw new Error('DATABASE_HOST is not defined in environment variables');
+      throw new Error('DATABASE_HOST não está definido no .env');
     }
     return dbHost;
   }
@@ -17,7 +17,7 @@ export class EnvironmentConfigService implements EnvironmentConfigInterface {
   getSecretKey(): string {
     const secretKey = this.configService.get<string>('SECRET_KEY');
     if (!secretKey) {
-      throw new Error('SECRET_KEY is not defined in environment variables');
+      throw new Error('SECRET_KEY não está definido no .env');
     }
     return secretKey;
   }
@@ -25,7 +25,7 @@ export class EnvironmentConfigService implements EnvironmentConfigInterface {
   getRabbitMqUrl(): string {
     const rabbitMqUrl = this.configService.get<string>('RABBITMQ_URL');
     if (!rabbitMqUrl) {
-      throw new Error('RABBITMQ_URL is not defined in environment variables');
+      throw new Error('RABBITMQ_URL não está definido no .env');
     }
     return rabbitMqUrl;
   }
@@ -33,7 +33,7 @@ export class EnvironmentConfigService implements EnvironmentConfigInterface {
   getRabbitMqQueue(): string {
     const rabbitMqQueue = this.configService.get<string>('RABBITMQ_QUEUE');
     if (!rabbitMqQueue) {
-      throw new Error('RABBITMQ_QUEUE is not defined in environment variables');
+      throw new Error('RABBITMQ_QUEUE não está definido no .env');
     }
     return rabbitMqQueue;
   }
