@@ -97,7 +97,7 @@ export class UrlController {
       { short_url },
       user_id,
     );
-    const hostUrl = `${req.protocol}://${req.get('host').split(':')[0]}/`;
+    const hostUrl = `${req.protocol}://${req.get('host').split(':')[0]}/url/`;
     return {short_url : hostUrl + brokerResult.short_url}
   }
 
