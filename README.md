@@ -2,6 +2,8 @@
 
 Este é um serviço simples e eficiente para encurtamento de URLs, permitindo aos usuários criar, gerenciar e excluir URLs, com ou sem autenticação. URLs criadas com autenticação ficam vinculadas a uma conta de usuário, permitindo que o usuário realize ações como listar, editar, excluir (soft delete) e visualizar o número de acessos a cada URL.
 
+![Arquitetura](image-1.png)
+
 ## Tecnologias Utilizadas
 
 - **Node.js (v22)**: Plataforma JavaScript para construção de aplicações escaláveis.
