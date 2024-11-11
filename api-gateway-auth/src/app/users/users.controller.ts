@@ -90,18 +90,4 @@ export class UsersController {
     return this.userService.updateUser(user_id, data);
   }
 
-  /**
-   * Deleta o próprio usuário.
-   * @param req - Request que contém o ID do usuário autenticado.
-   * @returns O usuário deletado.
-   */
-  @Delete()
-  @ApiOperation({ summary: 'Deleta o próprio usuário' })
-  @ApiResponse({ status: 200, description: 'Usuário deletado com sucesso.' })
-  @ApiResponse({ status: 404, description: 'Usuário não encontrado' })
-  @UseGuards(JwtAuthGuard)
-  async deleteUser(@Request() req: CustomRequest): Promise<User> {
-    const user_id = req.user?.user_id;
-    return this.userService.deleteUser(user_id);
-  }
 }
