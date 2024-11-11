@@ -12,7 +12,6 @@ describe('UserRepository', () => {
     email: 'test@example.com',
     name: 'Test User',
     password: 'hashed_password',
-    phone_number: '(23) 323223232',
     created_at: new Date(),
     updated_at: new Date(),
   };
@@ -78,7 +77,6 @@ describe('UserRepository', () => {
         email: 'test@example.com',
         name: 'Test User',
         password: 'hashed_password',
-        phone_number: '(23) 323223232',
       };
 
       const result = await repository.createUser(createUserDto);

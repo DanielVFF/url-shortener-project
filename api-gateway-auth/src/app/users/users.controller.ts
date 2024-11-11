@@ -7,6 +7,7 @@ import {
   Body,
   Param,
   UseGuards,
+  Request,
 } from '@nestjs/common';
 import { User } from '@prisma/client';
 import {
@@ -21,6 +22,7 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { JwtAuthGuard } from '../auth/auth.guard';
 import { UuidParamDto } from './dto/uuid-param.dto';
+import { CustomRequest } from 'src/interfaces/custom-request';
 
 @ApiTags('User')
 @ApiBearerAuth()
@@ -39,10 +41,9 @@ export class UsersController {
   }
 
   @Post()
-  @ApiOperation({ summary: 'Criação de um novo usuário' })
+  @ApiOperation({ summary: 'Registrar o próprio usuario' })
   @ApiResponse({ status: 201, description: 'Usuário criado com sucesso' })
   @ApiResponse({ status: 422, description: 'Dados inválidos.' })
-  // @UseGuards(JwtAuthGuard)
   async createUser(@Body() data: CreateUserDto): Promise<User> {
     return this.userService.createUser(data);
   }
@@ -50,32 +51,32 @@ export class UsersController {
   @Get()
   @ApiOperation({ summary: 'Listar todos usuários' })
   @ApiResponse({ status: 200, description: 'Lista de Usuários' })
-  // @UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAuthGuard)
   async getAllUsers(): Promise<User[]> {
     return this.userService.getAllUsers();
   }
 
-  @Put(':uuid')
-  @ApiOperation({ summary: 'Atualiza um usuário pelo user_id' })
+  @Put()
+  @ApiOperation({ summary: 'Atualiza o próprio usuário' })
   @ApiResponse({ status: 200, description: 'Usuário atualizado com sucesso.' })
   @ApiResponse({ status: 404, description: 'Usuário não encontrado' })
-  @ApiParam({ name: 'uuid', description: 'ID do Usuario' })
   @ApiResponse({ status: 422, description: 'Dados inválidos.' })
   @UseGuards(JwtAuthGuard)
-  async updateUser(
-    @Param() uuid: UuidParamDto,
+  async updateOwnUser(
     @Body() data: UpdateUserDto,
+    @Request() req: CustomRequest,
   ): Promise<User> {
-    return this.userService.updateUser(uuid?.uuid, data);
+    const user_id = req.user?.user_id;
+    return this.userService.updateUser(user_id, data);
   }
 
-  @Delete(':uuid')
-  @ApiOperation({ summary: 'Deleta um usuário pelo user_id' })
+  @Delete()
+  @ApiOperation({ summary: 'Deleta o próprio usuário' })
   @ApiResponse({ status: 200, description: 'Usuário deletado com sucesso.' })
   @ApiResponse({ status: 404, description: 'Usuário não encontrado' })
-  @ApiParam({ name: 'uuid', description: 'ID do Usuario' })
   @UseGuards(JwtAuthGuard)
-  async deleteUser(@Param() uuid: UuidParamDto): Promise<User> {
-    return this.userService.deleteUser(uuid?.uuid);
+  async deleteUser(@Request() req: CustomRequest): Promise<User> {
+    const user_id = req.user?.user_id;
+    return this.userService.deleteUser(user_id);
   }
 }

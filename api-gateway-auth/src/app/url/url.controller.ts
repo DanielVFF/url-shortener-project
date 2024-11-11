@@ -25,6 +25,7 @@ import {
 import { UrlIdDto } from './dto/validate-url-id.dto';
 import { OptionalJwtAuthGuard } from '../auth/optional-auth.guard';
 import { Response } from 'express';
+import { CustomRequest } from 'src/interfaces/custom-request';
 @Controller('url')
 @ApiTags('Url')
 @ApiBearerAuth()
@@ -37,7 +38,7 @@ export class UrlController {
   @ApiResponse({ status: 201, description: 'URL criada com sucesso' })
   async createUrl(
     @Body() data: CreateUrlDto,
-    @Request() req: any,
+    @Request() req: CustomRequest,
   ): Promise<Url> {
     const user_id = req.user?.user_id;
     return await this.brokerService.sendMessage('create-url', data, user_id);
@@ -47,7 +48,7 @@ export class UrlController {
   @UseGuards(JwtAuthGuard)
   @ApiOperation({ summary: 'Obter todas as URLs' })
   @ApiResponse({ status: 200, description: 'Lista de URLs' })
-  async getUrlById(@Request() req: any): Promise<Url[] | null> {
+  async getUrlById(@Request() req: CustomRequest): Promise<Url[] | null> {
     const user_id = req.user?.user_id;
     return await this.brokerService.sendMessage(
       'get-url-by-user_id',
@@ -65,7 +66,7 @@ export class UrlController {
   @ApiParam({ name: 'short_url', description: 'O short URL da URL encurtada' })
   async getUrlByShortUrl(
     @Param('short_url') short_url: string,
-    @Request() req: any,
+    @Request() req: CustomRequest,
     @Res() res: Response,
   ): Promise<void | null> {
     const user_id = req.user?.user_id;
@@ -103,7 +104,7 @@ export class UrlController {
   @ApiParam({ name: 'url_id', description: 'ID da URL a ser excluída' })
   async deleteUrl(
     @Param() params: UrlIdDto,
-    @Request() req: any,
+    @Request() req: CustomRequest,
   ): Promise<Url> {
     const { url_id } = params;
     const user_id = req.user?.user_id;

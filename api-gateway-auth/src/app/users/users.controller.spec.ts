@@ -17,7 +17,6 @@ describe('UsersController', () => {
     email: 'test@example.com',
     name: 'Test User',
     password: 'hashed_password',
-    phone_number: '(23) 323223232',
     created_at: new Date(),
     updated_at: new Date(),
   };

@@ -1,11 +1,4 @@
-import {
-  IsString,
-  IsEmail,
-  IsOptional,
-  IsPhoneNumber,
-  MinLength,
-  Matches,
-} from '@nestjs/class-validator';
+import { IsString, IsEmail, MinLength, Matches } from '@nestjs/class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class CreateUserDto {
@@ -37,13 +30,4 @@ export class CreateUserDto {
     },
   )
   password: string;
-
-  @ApiProperty({
-    description: 'Número de telefone do usuário',
-    example: '+55 64 99242-3763',
-    required: false,
-  })
-  @IsOptional()
-  @IsPhoneNumber(undefined, { message: 'Telefone deve ser válido' })
-  phone_number?: string;
 }

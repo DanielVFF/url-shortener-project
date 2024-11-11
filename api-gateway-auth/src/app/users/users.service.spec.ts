@@ -15,7 +15,6 @@ describe('UsersService', () => {
     email: 'test@example.com',
     name: 'Test User',
     password: 'hashed_password',
-    phone_number: '(23) 323223232',
     created_at: new Date(),
     updated_at: new Date(),
   };
@@ -67,7 +66,6 @@ describe('UsersService', () => {
         email: 'test@example.com',
         name: 'Test User',
         password: 'password',
-        phone_number: '(23) 323223232',
       };
   
       const result = await service.createUser(createUserDto);
@@ -84,7 +82,6 @@ describe('UsersService', () => {
         email: 'test@example.com',
         name: 'Test User',
         password: 'password',
-        phone_number: '(23) 323223232',
       };
   
       userRepository.createUser = jest.fn().mockRejectedValue(new Error('Email já cadastrado'));
