@@ -97,6 +97,18 @@ services:
       timeout: 5s
       retries: 5
 
+  nginx:
+    image: nginx:alpine
+    container_name: nginx
+    ports:
+      - "80:80"
+    volumes:
+      - ./config/nginx/nginx.conf:/etc/nginx/nginx.conf
+    depends_on:
+      - api_gateway
+    networks:
+      - app-network
+
 networks:
   app-network:
     driver: bridge
@@ -107,3 +119,4 @@ volumes:
   postgres_db_data_url:
   api_gateway_node_modules:
   microservice_shortener_node_modules:
+  nginx-conf:
