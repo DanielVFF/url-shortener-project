@@ -83,7 +83,7 @@ export class UrlController {
   @Get('link/:short_url')
   @ApiOperation({
     summary:
-      'Obter Link de URL pelo short URL, importante notar que swagger bloqueia esse redirecionamento',
+      'Obter Link de URL pelo short URL, *IMPORTANTE NOTAR QUE SWAGGER BLOQUEIA ESSE REDIRECIONAMENTO*',
   })
   @ApiResponse({ status: 200, description: 'URL encontrada' })
   @ApiParam({ name: 'short_url', description: 'O short URL da URL encurtada' })
