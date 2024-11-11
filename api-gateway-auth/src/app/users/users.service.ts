@@ -68,13 +68,4 @@ export class UsersService {
     }
     return await this.userRepository.updateUser(userId, updateData);
   }
-
-  /**
-   * Deleta um usuário pelo ID.
-   * @param userId - ID do usuário a ser deletado.
-   * @returns O usuário deletado.
-   */
-  async deleteUser(userId: string): Promise<User> {
-    return await this.userRepository.deleteUser(userId);
-  }
 }
