@@ -36,7 +36,7 @@ export class UrlRepository implements IUrlRepository {
 
   async getUrlByShortUrl(short_url: string): Promise<Url | null> {
     return await this.prisma.url.findUnique({
-      where: { short_url },
+      where: { short_url, status: 1 },
     });
   }
 
