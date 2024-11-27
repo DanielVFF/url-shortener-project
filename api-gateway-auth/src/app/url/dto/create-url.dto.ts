@@ -1,6 +1,6 @@
 import { IsOptional, MinLength } from '@nestjs/class-validator';
 import { ApiProperty } from '@nestjs/swagger';
-import { IsNotEmpty, MaxLength } from 'class-validator';
+import { IsNotEmpty, IsUrl, MaxLength } from 'class-validator';
 
 export class CreateUrlDto {
   @ApiProperty({
@@ -8,6 +8,7 @@ export class CreateUrlDto {
     example: 'https://docs.nestjs.com',
   })
   @IsNotEmpty({ message: 'Informe a url original' })
+  @IsUrl({},{message :"Tem que ser uma url válida"})
   original_url: string;
 
   @ApiProperty({
