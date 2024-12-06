@@ -53,7 +53,7 @@ A estrutura do projeto segue a arquitetura de microserviços e de recursos REST.
 1. Clone o repositório:
 
 ```bash
-git clone https://github.com/seu-usuario/encurtador-de-urls.git
+git clone git@github.com:DanielVFF/url-shortener-project.git
 ```
 
 2. Copie o arquivo `.env` para a pasta principal do projeto e para as pastas dos microserviços:
